@@ -1,7 +1,23 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { BarsIndex } from "./BarsIndex";
+
 export function Content() {
+  const [bars, setBars] = useState([]);
+
+  const handleIndexBars = () => {
+    console.log("handleIndexBars");
+    axios.get("http://localhost:5188/bars").then((response) => {
+      console.log(response.data);
+      setBars(response.data);
+    });
+  };
+
+  useEffect(handleIndexBars, []);
+
   return (
     <div>
-      <h2>This is where all the bars will be</h2>
+      <BarsIndex bars={bars} />
     </div>
   );
 }
